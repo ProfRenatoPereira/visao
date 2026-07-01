@@ -1,0 +1,146 @@
+/* Variáveis de cores para fácil manutenção e Alto Contraste */
+:root {
+    --bg-color: #f4f7f6;
+    --text-color: #333333;
+    --primary-color: #0066cc;
+    --primary-hover: #004499;
+    --box-bg: #ffffff;
+    --border-color: #cccccc;
+    --focus-outline: #ff9900;
+}
+
+/* Classe aplicada via JavaScript para Alto Contraste */
+.alto-contraste {
+    --bg-color: #000000;
+    --text-color: #ffff00;
+    --primary-color: #ffff00;
+    --primary-hover: #ffffff;
+    --box-bg: #000000;
+    --border-color: #ffff00;
+    --focus-outline: #00ff00;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.controles-acessibilidade button {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 8px 12px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+/* Garantia de foco visível para navegação por teclado (Acessibilidade) */
+button:focus, input:focus {
+    outline: 3px solid var(--focus-outline);
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+}
+
+section {
+    background-color: var(--box-bg);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.campo-grupo {
+    margin: 15px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--box-bg);
+    color: var(--text-color);
+    border-radius: 4px;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.alto-contraste button {
+    color: #000000;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.resultado-caixa {
+    padding: 15px;
+    border-left: 5px solid var(--primary-color);
+    background-color: rgba(0, 102, 204, 0.1);
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.container-simulacao {
+    border: 1px dashed var(--border-color);
+    padding: 30px;
+    text-align: center;
+    background-color: var(--box-bg);
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+/* O desfoque simula o efeito óptico da miopia */
+#texto-simulado {
+    transition: filter 0.5s ease;
+    font-size: 1.2rem;
+}
