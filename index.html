@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Óptica, Visão e Acessibilidade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Simulador Óptico de Visão</h1>
+        <div class="controles-acessibilidade" role="toolbar" aria-label="Ferramentas de Acessibilidade">
+            <button id="btn-contraste" onclick="alternarContraste()" aria-label="Alternar modo de alto contraste">🌓 Alto Contraste</button>
+            <button onclick="alterarFonte(2)" aria-label="Aumentar tamanho do texto">A+</button>
+            <button onclick="alterarFonte(-2)" aria-label="Diminuir tamanho do texto">A-</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="configuracao" aria-labelledby="titulo-calculo">
+            <h2 id="titulo-calculo">Cálculo de Dioptria (Miopia)</h2>
+            <p>A miopia causa dificuldade para enxergar de longe. Digite o grau (dioptria) abaixo para ver o ponto máximo de visão nítida.</p>
+            
+            <div class="campo-grupo">
+                <label for="grau-input">Grau de Miopia (use valores negativos, ex: -2.5):</label>
+                <input type="number" id="grau-input" step="0.25" max="0" placeholder="Ex: -2.00" aria-required="true">
+            </div>
+
+            <button id="btn-calcular" onclick="calcularVisao()">Analisar Visão</button>
+        </section>
+
+        <section class="resultados" aria-labelledby="titulo-resultados">
+            <h2 id="titulo-resultados">Resultado e Simulação Visual</h2>
+            
+            <!-- Alerta dinâmico para leitores de tela -->
+            <div id="resultado-texto" class="resultado-caixa" role="live" aria-live="polite">
+                Insira o grau acima para calcular a distância focal.
+            </div>
+
+            <button id="btn-audio" onclick="lerTexto()" aria-label="Ouvir resultado em voz alta" disabled>🔊 Ouvir Resultado</button>
+
+            <h3>Simulação Visual do Ponto Remoto:</h3>
+            <div class="container-simulacao">
+                <p id="texto-simulado">Este texto representa um objeto distante na sua visão.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido focado em diretrizes de acessibilidade web (WCAG).</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
