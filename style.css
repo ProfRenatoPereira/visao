@@ -1,0 +1,794 @@
+/* ==========================================================================
+   1. CONFIGURAÇÕES DE VARIÁVEIS, REVERSÃO DO TEMA CLARO E RESETS
+   ========================================================================== */
+
+:root {
+    /* O site volta a iniciar no modo CLARO por padrão */
+    --bg-color: #EBECEE;
+    --text-color: #333333;
+    --primary-color: #002F52;
+    --primary-hover: #326589;
+    --box-bg: #FFFFFF;
+    --border-color: #474646;
+    --focus-outline: #ff9900;
+    --success-color: #28a745;
+    --success-hover: #218838;
+    --panel-bg: #e3f2fd;
+    --panel-text: #0d47a1;
+    --panel-border: #90caf9;
+
+    /* Variáveis legadas mantidas para total compatibilidade */
+    --cor-de-fundo: #EBECEE;
+    --branco: #FFFFFF;
+    --vermelho: darkred;
+    --laranja: #8b0000;
+    --azul-degrade: linear-gradient(97.54deg, #002F52 35.49%, #326589 165.37%);
+    --fonte-principal: "Poppins", sans-serif;
+    --azul: #002F52;
+    --fonte-secundario: "Josefin Sans", sans-serif;
+    --preto: #000000;
+    --cinza: #474646;
+    --cinza-claro: #858585;
+}
+
+/* 
+   MODO ALTO CONTRASTE (ATIVADO VIA JAVASCRIPT)
+   Ao clicar no botão, o body ganha esta classe e o site alterna perfeitamente para preto e amarelo.
+*/
+body.alto-contrast,
+body.alto-contraste,
+.alto-contraste {
+    --bg-color: #000000 !important;
+    --text-color: #ffff00 !important;
+    --primary-color: #ffff00 !important;
+    --primary-hover: #ffffff !important;
+    --box-bg: #000000 !important;
+    --border-color: #ffff00 !important;
+    --focus-outline: #00ff00 !important;
+    --success-color: #00ff00 !important;
+    --success-hover: #ffffff !important;
+    --panel-bg: #000000 !important;
+    --panel-text: #ffff00 !important;
+    --panel-border: #ffff00 !important;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    font-family: var(--fonte-principal);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    width: 100%;
+}
+
+button:focus, input:focus, select:focus {
+    outline: 3px solid var(--focus-outline);
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin: 0;
+}
+
+
+
+/* ==========================================================================
+   2. ESTRUTURA DO CABEÇALHO (DESKTOP)
+   ========================================================================== */
+.cabeçalho {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha tudo em sequência a partir da esquerda */
+    background-color: var(--box-bg);
+    border-bottom: 2px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.8vw 2vw;
+    width: 100%;
+    position: relative; 
+    z-index: 9888;
+    gap: 1.5vw;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo .container__imagem {
+    height: clamp(45px, 5vw, 70px);
+    width: auto;
+    display: block;
+}
+
+/* Título colado ao lado esquerdo com a logo */
+.gradient-text {
+    font-family: 'Josefin Sans', Garamond, serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 2.8vw, 3rem);
+    text-align: left;
+    margin: 0;
+    padding-left: 0.5vw;
+    
+    /* Gradiente multicolorido animado */
+    background: linear-gradient(98.54deg, blue 25%, yellow 37%, lightgray 38%, green 65%, darkred 95%);
+    background-size: 400% 400%;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    animation: degrade-animation 15s ease infinite; 
+}
+
+@keyframes degrade-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Empurra os controles e o menu "Construções" para a extrema direita */
+.controles-acessibilidade {
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    flex-shrink: 0;
+    margin-left: auto; /* Esse comando faz a mágica do alinhamento do Desktop */
+}
+
+.controles-acessibilidade button {
+    width: auto;
+    padding: 6px 12px;
+    font-size: clamp(0.75rem, 1.1vw, 1rem);
+    background-color: var(--primary-color);
+    color: var(--box-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.controles-acessibilidade button:hover {
+    background-color: var(--primary-hover);
+}
+
+.opções {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.opções__item {
+    position: relative;
+    padding: 0.5vw 1vw;
+}
+
+.opções__rotulo {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.2vw, 1.2rem);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* Oculta elementos mobile no Desktop */
+.container-menu, .container__botao, .opções__botão {
+    display: none;
+}
+
+/* Dropdowns e Submenus do Desktop */
+.opções__item:hover > .lista-menu-dropdown { display: block !important; }
+.opções__item .lista-menu-dropdown {
+    display: none; position: absolute; top: 100%; right: 0; left: auto; width: 190px;
+    background-color: var(--box-bg) !important; border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 4px; padding: 5px 0; z-index: 9999; list-style: none;
+}
+.opções__item .lista-menu__item { background-color: var(--box-bg) !important; padding: 10px 15px; list-style: none; }
+.opções__item .lista-menu__link { color: var(--primary-color) !important; text-decoration: none; text-transform: uppercase; font-weight: 700; font-size: 0.9rem; }
+.dropdown { position: relative; }
+.dropdown:hover .submenu { display: block !important; }
+.submenu {
+    display: none; position: absolute; top: 0; right: 100%; background-color: var(--box-bg) !important;
+    border: 1px solid var(--border-color); min-width: 160px; box-shadow: -4px 4px 12px rgba(0,0,0,0.15); border-radius: 4px; list-style: none; padding: 5px 0;
+}
+.submenu li a { color: var(--text-color) !important; padding: 8px 16px; display: block; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+.submenu li a:hover { background: var(--azul-degrade) !important; color: #ffffff !important; }
+
+/* ==========================================================================
+   5. REGRAS EXCLUSIVAS PARA MOBILE (CELULARES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    main { grid-template-columns: 1fr; gap: 4vw; }
+    
+    /* O cabeçalho mobile vira flex-wrap para permitir que os botões quebrem de linha sozinhos */
+    .cabeçalho { 
+        flex-wrap: wrap !important; 
+        justify-content: flex-start !important; 
+        padding: 12px 15px !important; 
+        gap: 10px !important; 
+    }
+    
+    /* 1. Ativa o Hambúrguer na primeira posição */
+    .container-menu { 
+        display: block !important; 
+        order: 1 !important;
+        position: relative !important;
+    }
+    
+    .cabeçalho__menu-hamburguer {
+        width: 24px; height: 24px; display: inline-block; cursor: pointer;
+        background-image: url("Menu.svg"); background-repeat: no-repeat; background-position: center; background-size: contain;
+    }
+    .container__botao:checked ~ .container__rotulo > .cabeçalho__menu-hamburguer { background-image: url("Menu Aberto.svg"); }
+    
+    /* 2. Logo na segunda posição */
+    .logo { order: 2 !important; }
+    .logo .container__imagem { height: 32px !important; }
+    
+    /* 3. Título IFA na terceira posição (Alinhados na Linha 1) */
+    .gradient-text { 
+        order: 3 !important; 
+        width: auto !important; 
+        flex-grow: 1 !important;
+        font-size: clamp(1.1rem, 4.5vw, 1.3rem) !important;
+        white-space: nowrap !important;
+    }
+    
+    /* 4. Força os Botões de Acessibilidade a irem sozinhos para a Linha 2 */
+    .controles-acessibilidade { 
+        order: 4 !important; 
+        width: 100% !important; /* Ocupa 100% para quebrar a linha automaticamente */
+        justify-content: center !important; 
+        margin-left: 0 !important; 
+        padding-top: 6px !important;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .controles-acessibilidade button { 
+        font-size: 0.85rem !important; 
+        padding: 8px 12px !important; 
+        flex-grow: 1; /* Faz os botões dividirem o espaço igualmente no celular */
+    }
+    
+    .opções { display: none !important; } /* Esconde o menu "Construções" no celular */
+    
+    /* Lista suspensa do hambúrguer móvel */
+    .container-menu .lista-menu-mobile {
+        display: none; position: absolute; top: 100%; left: 0; width: 220px;
+        background-color: var(--box-bg) !important; border: 2px solid var(--border-color);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3); border-radius: 4px; padding: 5px 0; z-index: 9999; list-style: none;
+    }
+    .container__botao:checked ~ .lista-menu-mobile { display: block !important; }
+    .container-menu .lista-menu__titulo { color: var(--vermelho) !important; font-weight: 700; font-size: 0.9rem; padding: 10px 15px; border-bottom: 1px solid var(--border-color); background-color: var(--box-bg) !important; }
+    .container-menu .lista-menu__item { background-color: var(--box-bg) !important; padding: 10px 15px; list-style: none; }
+    .container-menu .lista-menu__link { color: var(--text-color) !important; text-decoration: none; text-transform: uppercase; font-weight: 700; font-size: 0.85rem; display: block; background: none; -webkit-text-fill-color: initial; }
+}
+
+
+
+
+/* ==========================================================================
+   3. ACESSIBILIDADE E MENUS (DROPDOWN DESKTOP E HAMBÚRGUER MOBILE SEPARADOS)
+   ========================================================================== */
+
+/* Grupo de Acessibilidade: Empurrado totalmente para a margem direita */
+.controles-acessibilidade {
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    flex-shrink: 0;
+    margin-left: auto; /* Empurra este bloco e o menu "Construções" para a direita */
+}
+
+/* Botões compactos do cabeçalho */
+.controles-acessibilidade button {
+    width: auto;
+    padding: 6px 12px;
+    font-size: clamp(0.75rem, 1.1vw, 1rem);
+    background-color: var(--primary-color);
+    color: var(--box-bg); /* Fica branco no modo claro e preto no modo escuro */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-bottom: 0;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.controles-acessibilidade button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Menu de Navegação Desktop à Direita */
+.opções {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.opções__item {
+    position: relative;
+    padding: 0.5vw 1vw;
+}
+
+.opções__rotulo {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.2vw, 1.2rem);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* 
+   BLOQUEIO ABSOLUTO DO MENU HAMBÚRGUER:
+   Oculta completamente o botão e a lista mobile em computadores e projetores.
+*/
+.container-menu {
+    display: none !important;
+}
+
+/* Exibe o menu dropdown de Construções ao passar o mouse */
+.opções__item:hover > .lista-menu-dropdown {
+    display: block !important;
+}
+
+/* Caixa flutuante do Menu "CONSTRUÇÕES" */
+.opções__item .lista-menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0; 
+    left: auto;
+    width: 190px;
+    background-color: var(--box-bg) !important;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 5px 0;
+    z-index: 9999;
+    list-style: none;
+}
+
+.opções__item .lista-menu__item {
+    background-color: var(--box-bg) !important;
+    padding: 10px 15px;
+    list-style: none;
+}
+
+.opções__item .lista-menu__link {
+    color: var(--primary-color) !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* Submenu flutuante de terceiro nível (Visão -> Óptica...) */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .submenu {
+    display: block !important;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 100%; 
+    background-color: var(--box-bg) !important;
+    border: 1px solid var(--border-color);
+    min-width: 160px;
+    box-shadow: -4px 4px 12px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    list-style: none;
+    padding: 5px 0;
+}
+
+.submenu li a {
+    color: var(--text-color) !important;
+    padding: 8px 16px;
+    display: block;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.submenu li a:hover {
+    background: var(--azul-degrade) !important;
+    color: #ffffff !important;
+}
+
+
+
+/* ==========================================================================
+   4. MIOLO DO SITE: BANNER ANIMADO, FORMULÁRIOS E BOTÕES GLOBAIS
+   ========================================================================== */
+
+/* Seção do Banner Principal */
+.banner {
+    width: 100%;
+    color: var(--branco);
+    text-align: center;
+    padding: clamp(2em, 5vw, 6em) 1vw; 
+    box-sizing: border-box;
+}
+
+.banner-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Efeito Texto Digitando */
+.titulo-digitando {
+    font-family: monospace;
+    font-size: clamp(1.5rem, 3vw, 3rem); 
+    color: var(--vermelho); 
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid var(--vermelho); 
+    width: 0; 
+    animation: typing 6s steps(30, end) infinite, blink 1s infinite;
+    margin: 0 auto; 
+    text-align: center;
+}
+
+@keyframes typing { 
+    0% { width: 0; } 
+    50%, 100% { width: 100%; } 
+}
+
+@keyframes blink { 
+    50% { border-color: transparent; } 
+}
+
+/* Título de seção secundário */
+.titulo {
+    font-family: Garamond, var(--fonte-secundario), serif;
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    text-align: center;
+    color: var(--vermelho);
+    margin: 1vw 0;
+}
+
+/* Estrutura de Formulários */
+.campo-grupo {
+    margin: 1.5vw 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5vw;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+    border: 1px solid var(--border-color);
+    background-color: var(--box-bg);
+    color: var(--text-color);
+    border-radius: 4px;
+}
+
+/* Sistema Global de Botões Grandes das Seções */
+button {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--primary-color);
+    color: #ffffff; 
+    border: 1px solid var(--border-color);
+    padding: 12px 20px;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 15px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+}
+
+button:disabled {
+    background-color: #555555;
+    color: #222222;
+    cursor: not-allowed;
+    border-color: #777777;
+}
+
+/* Alinhamento dos Botões de Ação do Painel Inferior */
+.botoes-acoes {
+    display: flex;
+    gap: 1vw;
+    margin-top: 1vw;
+    margin-bottom: 15px;
+}
+
+.botoes-acoes button {
+    margin-bottom: 0;
+}
+
+.btn-sucesso {
+    background-color: var(--success-color);
+    color: #ffffff;
+}
+
+.btn-sucesso:hover:not(:disabled) {
+    background-color: var(--success-hover);
+}
+
+/* Caixas de Resultados e Simulação Óptica */
+.resultado-caixa {
+    padding: 1.5vw;
+    border-left: 5px solid var(--primary-color);
+    background-color: var(--bg-color); 
+    outline: 1px solid var(--border-color);
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+}
+
+.painel-lente {
+    background-color: var(--panel-bg);
+    color: var(--panel-text);
+    border: 1px solid var(--panel-border);
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: clamp(1rem, 1.3vw, 1.3rem);
+}
+
+.container-simulacao {
+    border: 1px dashed var(--border-color);
+    padding: 3vw;
+    text-align: center;
+    background-color: var(--box-bg);
+    margin-top: 1vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}
+
+#texto-simulado {
+    transition: none; 
+    font-size: clamp(1.1rem, 1.5vw, 1.6rem);
+    display: inline-block;
+}
+
+/* Configuração do Layout de Colunas da Seção Main (Dois blocos lado a lado) */
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2vw;
+    margin-top: 2vw;
+    padding: 0 2vw;
+}
+
+section {
+    background-color: var(--box-bg);
+    border: 1px solid var(--border-color);
+    padding: 2.5vw;
+    border-radius: 8px;
+}
+
+/*Elemento Ocultado Desktop*/
+.container__titulo, .container__texto, .container__titulo--negrito, .container__imagem-transparente {
+    display: none;
+}
+
+/* ==========================================================================
+   5. REGRAS EXCLUSIVAS PARA MOBILE (CELULARES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Ajusta o grid do simulador para empilhar em uma coluna só no mobile */
+    main { 
+        grid-template-columns: 1fr; 
+        gap: 4vw; 
+    }
+    
+    /* Faz o cabeçalho mobile aceitar quebra de linha de forma estruturada */
+    .cabeçalho { 
+        flex-wrap: wrap !important; 
+        justify-content: flex-start !important; 
+        padding: 12px 15px !important; 
+        gap: 10px !important; 
+        background-color: var(--box-bg) !important;
+    }
+    
+    /* 1. Ativa e exibe o Hambúrguer na primeira posição da Linha 1 */
+    .container-menu { 
+        display: block !important; 
+        order: 1 !important;
+        position: relative !important;
+    }
+    
+    .cabeçalho__menu-hamburguer {
+        width: 24px; 
+        height: 24px; 
+        display: inline-block; 
+        cursor: pointer;
+        background-image: url("Menu.svg"); 
+        background-repeat: no-repeat; 
+        background-position: center; 
+        background-size: contain;
+    }
+    
+    /* Altera o ícone para o "X" quando o menu abrir no mobile */
+    .container__botao:checked ~ .container__rotulo > .cabeçalho__menu-hamburguer { 
+        background-image: url("Menu Aberto.svg"); 
+    }
+    
+    /* 2. Logo na segunda posição da Linha 1 */
+    .logo { 
+        order: 2 !important; 
+    }
+    
+    .logo .container__imagem { 
+        height: 32px !important; 
+    }
+    
+    /* 3. Título IFA na terceira posição (Todos alinhados lado a lado na Linha 1) */
+    .gradient-text { 
+        order: 3 !important; 
+        width: auto !important; 
+        flex-grow: 1 !important;
+        font-size: clamp(1.1rem, 4.5vw, 1.3rem) !important;
+        white-space: nowrap !important;
+        text-align: left !important;
+        padding-left: 5px !important;
+    }
+    
+    /* 4. Força os Botões de Acessibilidade a irem sozinhos para a Linha 2 no mobile */
+    .controles-acessibilidade { 
+        order: 4 !important; 
+        width: 100% !important; /* Ocupa 100% da largura para criar a quebra de linha */
+        display: flex !important;
+        justify-content: center !important; 
+        margin-left: 0 !important; 
+        padding-top: 8px !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .controles-acessibilidade button { 
+        font-size: 0.85rem !important; 
+        padding: 8px 12px !important; 
+        flex-grow: 1; /* Faz os três botões dividirem o espaço do celular igualmente */
+    }
+    
+    /* Oculta o menu de texto "Construções" padrão de desktop no celular */
+    .opções { 
+        display: none !important; 
+    } 
+    
+    /* ==========================================================================
+       PAINEL SUSPENSO DE LINKS DO HAMBÚRGUER MOBILE
+       ========================================================================== */
+    .container-menu .lista-menu-mobile {
+        display: none; 
+        position: absolute; 
+        top: 100%; 
+        left: 0; 
+        width: 220px;
+        background-color: var(--box-bg) !important; 
+        border: 2px solid var(--border-color);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+        border-radius: 4px; 
+        padding: 5px 0; 
+        z-index: 9999; 
+        list-style: none;
+    }
+    
+    /* Abre a caixinha de links ao clicar no hambúrguer do celular */
+    .container__botao:checked ~ .lista-menu-mobile { 
+        display: block !important; 
+    }
+    
+    .container-menu .lista-menu__titulo { 
+        color: var(--vermelho) !important; 
+        font-weight: 700; 
+        font-size: 0.9rem; 
+        padding: 10px 15px; 
+        border-bottom: 1px solid var(--border-color); 
+        background-color: var(--box-bg) !important; 
+    }
+    
+    .container-menu .lista-menu__item { 
+        background-color: var(--box-bg) !important; 
+        padding: 10px 15px; 
+        list-style: none; 
+    }
+    
+    .container-menu .lista-menu__link { 
+        color: var(--text-color) !important; 
+        text-decoration: none; 
+        text-transform: uppercase; 
+        font-weight: 700; 
+        font-size: 0.85rem; 
+        display: block; 
+        background: none; 
+        -webkit-text-fill-color: initial; 
+    }
+    
+    /* Destaque ao passar o dedo nos links temáticos */
+    .container-menu .lista-menu__item:hover {
+        background-color: var(--primary-color) !important;
+    }
+    .container-menu .lista-menu__item:hover .lista-menu__link {
+        color: #000000 !important;
+    }
+}
+
+
+
+
+/* Oculta os botões extras de celular por padrão no computador */
+.acessibilidade-mobile {
+    display: none !important;
+}
+
+
+
+
+
+
+/* ==========================================================================
+   7. RODAPÉ DO SISTEMA (FORMATADO COMO CAIXA IGUAL AO CABEÇALHO)
+   ========================================================================== */
+.rodape-caixa {
+    display: block;
+    background-color: #000000; /* Força o fundo escuro padrão do cabeçalho */
+    border: 2px solid var(--border-color); /* Borda amarela */
+    border-radius: 8px; /* Mesma curvatura de cantos do cabeçalho */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave idêntica */
+    width: auto;
+    margin: 4vw 2vw 2vw 2vw; /* Margens externas de espaçamento */
+    box-sizing: border-box;
+}
+
+/* Centralização absoluta e espaçamento fluido dos textos */
+.rodapepadrao {
+    text-align: center; /* Garante que todo o texto fique no centro */
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem); /* Fonte escala de celulares a projetores */
+    padding: 2vw 3vw; /* Espaçamento interno confortável */
+    color: var(--text-color); /* Segue a cor do tema atual (branco ou amarelo) */
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Cria um espaço padrão entre cada parágrafo e copyright */
+}
+
+.rodapepadrao p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.copyright {
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+}

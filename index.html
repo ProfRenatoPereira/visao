@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head> <!--INSTRUMENTOS DO PROGRAMADOR-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>®ψΣ - veja</title>
+    <link rel="icon" type="image/svg" href="Logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Swiper v11 (Removida a duplicidade da v8) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+<body>
+  
+<header class="cabeçalho"> <!-- CABEÇALHO INTEGRADO E DEFINITIVO -->
+    
+    <!-- 1. Menu Hambúrguer (Oculto no Computador / Ativo Só no Celular) -->
+    <div class="container-menu"> 
+        <input type="checkbox" id="menu" class="container__botao"> 
+        <label for="menu" class="container__rotulo"> 
+            <span class="cabeçalho__menu-hamburguer"></span> 
+        </label>
+        <ul class="lista-menu-mobile"> 
+            <li class="lista-menu__titulo">TEMÁTICAS</li>
+            <li class="lista-menu__item"><a href="mobilidade.html" class="lista-menu__link">mobilidade</a></li>
+            <li class="lista-menu__item"><a href="mu.html" class="lista-menu__link">Movimento Uniforme</a></li>
+            <li class="lista-menu__item"><a href="muv.html" class="lista-menu__link">Movimento Variado</a></li>
+            <li class="lista-menu__item"><a href="din.html" class="lista-menu__link">Dinâmica</a></li>
+        </ul>
+    </div>
+
+    <!-- 2. Logo (Bem à esquerda) -->
+    <div class="logo">  
+        <a href="index.html">
+           <img src="Logo.svg" alt="Logo da home" class="container__imagem">
+        </a>
+    </div>
+
+    <!-- 3. Título (Colado ao lado da logo) -->
+    <h1 class="gradient-text">IFA CCMSCTM</h1>
+
+    <!-- 4. Controles de Acessibilidade Padrão -->
+    <div class="controles-acessibilidade" role="toolbar" aria-label="Ferramentas de Acessibilidade">
+        <button id="btn-contraste" onclick="alternarContraste()">Acessibilidade 🌓 Alto Contraste</button>
+        <button onclick="alterarFonte(2)">A+</button>
+        <button onclick="alterarFonte(-2)">A-</button>       
+    </div>
+
+    <!-- 5. Menu Construções (Na extrema direita) -->
+    <ul class="opções"> 
+        <li class="opções__item">
+            <span class="opções__rotulo">CONSTRUÇÕES</span>
+            <ul class="lista-menu-dropdown"> 
+                <li class="lista-menu__item dropdown"> 
+                    <a href="#" class="lista-menu__link">Visão</a> 
+                    <ul class="submenu">
+                        <li><a href="luz.html" class="submenu__link">Ondulatória</a></li>
+                        <li><a href="anomalias.html" class="submenu__link">Anomalias de visão</a></li>
+                        <li><a href="lentes.html" class="submenu__link">Óptica</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul> 
+
+</header> <!-- FIM DO CABEÇALHO -->
+
+ <!-- FIM DO CABEÇALHO -->
+
+
+    <section class="banner"> <!--Primeiro Espaço editável da página inicial-->
+        <div class="banner-container">
+             <h1 class="titulo-digitando"> LENTES CORRETIVAS </h1>
+        </div>
+    </section>
+
+    <main>
+        <section class="configuracao" aria-labelledby="titulo-calculo">
+            <h2 id="titulo-calculo">Configuração da Receita Óptica</h2>
+            <p>Selecione a condição visual e insira o grau para simular o efeito físico no olho humano.</p>
+            
+            <div class="campo-grupo">
+                <label for="tipo-visao">Condição Visual:</label>
+                <select id="tipo-visao" onchange="atualizarInterfacePorCondicao()">
+                    <option value="miopia">Miopia (Dificuldade de longe)</option>
+                    <option value="hipermetropia">Hipermetropia (Dificuldade de perto)</option>
+                    <option value="astigmatismo">Astigmatismo (Visão distorcida/borrada)</option>
+                    <option value="presbiopia">Presbiopia / Vista Cansada (Dificuldade de perto por idade)</option>
+                </select>
+            </div>
+
+            <div class="campo-grupo">
+                <label id="label-grau" for="grau-input">Grau de Miopia (use valores negativos, ex: -2.50):</label>
+                <input type="number" id="grau-input" step="0.25" placeholder="Ex: -2.00" aria-required="true">
+            </div>
+
+            <div class="campo-grupo" id="container-eixo" style="display: none;">
+                <label for="eixo-input">Eixo do Astigmatismo (0° a 180°):</label>
+                <input type="number" id="eixo-input" min="0" max="180" placeholder="Ex: 90" value="90">
+            </div>
+
+            <button id="btn-calcular" onclick="calcularVisao()">Analisar Visão</button>
+        </section>
+
+        <section class="resultados" aria-labelledby="titulo-resultados">
+            <h2 id="titulo-resultados">Resultado e Simulação Visual</h2>
+            
+            <div id="resultado-texto" class="resultado-caixa" aria-live="polite">
+                Selecione as opções e clique em Analisar Visão.
+            </div>
+
+            <!-- Botões de Ação do Resultado -->
+            <div class="botoes-acoes">
+                <button id="btn-audio" onclick="lerTexto()" aria-label="Ouvir resultado em voz alta" disabled>🔊 Ouvir Resultado</button>
+                <button id="btn-corrigir" onclick="iniciarCorrecaoOcular()" class="btn-sucesso" disabled>👓 Aplicar Lente Corretiva</button>
+            </div>
+
+            <!-- Painel Dinâmico da Lente -->
+            <div id="painel-lente" class="painel-lente" style="display: none;">
+                Lente de Correção Atual: <strong id="grau-lente-dinamico">0.00</strong> DP
+            </div>
+
+            <h3>Simulação Visual do Efeito Óptico:</h3>
+            <div class="container-simulacao">
+                <p id="texto-simulado">Este texto serve como referência para avaliar a nitidez da sua visão simulada.</p>
+            </div>
+        </section>
+    </main>
+
+       <footer class="rodape-caixa"> <!-- RODAPÉ FORMATADO COMO CAIXA -->
+    <div class="rodapepadrao"> 
+        <p>CRÉDITOS: EquipeAlura/SEED-PR. Autoras e autores de códigos, imagens, sons e demais conhecimentos utilizados e multiplicados neste projeto aberto. Sobretudo, toda gratidão por gentis críticas e generosa motivação creditadas por estimadas e valorosos estudantes.</p>
+        <p>Desenvolvido focado em diretrizes de acessibilidade web (WCAG) e princípios de óptica física.</p>
+        <div class="copyright">© Copyright Física Renato Pereira ®ψΣ.</div>
+        <div class="copyright">Ed. 00-10/2024. Rev. 01-05/2026.</div>
+    </div>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
