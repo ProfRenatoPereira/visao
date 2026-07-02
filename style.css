@@ -6,7 +6,7 @@
     /* O site volta a iniciar no modo CLARO por padrão */
     --bg-color: #EBECEE;
     --text-color: #333333;
-    --primary-color: #002F52;
+    --primary-color: #02021b;
     --primary-hover: #326589;
     --box-bg: #FFFFFF;
     --border-color: #474646;
@@ -495,7 +495,7 @@ input, select {
 button {
     font-family: 'Poppins', sans-serif;
     background-color: var(--primary-color);
-    color: #ffffff; 
+    color: #fc0202; 
     border: 1px solid var(--border-color);
     padding: 12px 20px;
     font-size: clamp(0.9rem, 1.2vw, 1.1rem);
@@ -513,7 +513,7 @@ button:hover:not(:disabled) {
 
 button:disabled {
     background-color: #555555;
-    color: #222222;
+    color: #e9e1e1;
     cursor: not-allowed;
     border-color: #777777;
 }
