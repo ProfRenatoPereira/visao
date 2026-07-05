@@ -1,7 +1,6 @@
 /* ==========================================================================
    1. CONFIGURAÇÕES DE VARIÁVEIS, REVERSÃO DO TEMA CLARO E RESETS
    ========================================================================== */
-
 :root {
     /* O site volta a iniciar no modo CLARO por padrão */
     --bg-color: #EBECEE;
